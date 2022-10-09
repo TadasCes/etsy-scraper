@@ -1,10 +1,9 @@
 import "./style.css";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import { useGetSalesData } from "./hooks/useGetSalesData";
-import ProductGrid from "./components/ProductGrid";
 
 function App() {
-  const { shopName, setShopName, getProductData, errorMessage, loading, data } =
+  const { shopName, setShopName, getProductData, errorMessage, data } =
     useGetSalesData();
 
   return (
