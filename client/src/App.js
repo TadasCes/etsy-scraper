@@ -1,34 +1,23 @@
-import "./style.css";
-import { Button, TextField, Box, Typography } from "@mui/material";
-import { useGetSalesData } from "./hooks/useGetSalesData";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home/Home";
+import { ShopListings } from "./components/ShopListings/ShopListings";
+import { ShopSales } from "./components/ShopSales/ShopSales";
+import { ListingDetails } from "./components/ShopListings/ListingDetails";
+import ShopInfo from "./components/ShopInfo/ShopInfo";
 
 function App() {
-  const { shopName, setShopName, getProductData, errorMessage, data } =
-    useGetSalesData();
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <Box display="flex" flexDirection="column" sx={{ marginTop: "20px" }}>
-          <TextField
-            label="Shop namee:  "
-            value={shopName}
-            onChange={(e) => setShopName(e.target.value)}
-          />
-          <Button type="submit" variant="contained" onClick={getProductData}>
-            Search
-          </Button>
-        </Box>
-        <Typography variant="h5" sx={{ marginTop: "20px" }}>
-          Shop name: {shopName}
-        </Typography>
-        {errorMessage !== "" && (
-          <Typography className="error-message">{errorMessage}</Typography>
-        )}
-        <Typography>{JSON.stringify(data)}</Typography>
-        {/* {!loading && <ProductGrid data={data} />} */}
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/shop/:shopName" element={<ShopInfo />}>
+        <Route path="/shop/:shopName/listings" element={<ShopListings />} />
+        <Route
+          path="/shop/:shopName/listings/:listingId"
+          element={<ListingDetails />}
+        />
+        <Route path="/shop/:shopName/sales" element={<ShopSales />} />
+      </Route>
+    </Routes>
   );
 }
 
